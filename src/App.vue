@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="">
-    <div id="nav" class="text-left">
+    <div id="nav" class="text-right shadow mb-2">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
@@ -17,7 +17,7 @@
 }
 
 #nav {
-  padding: 30px;
+  padding: 25px;
 }
 
 #nav a {
