@@ -6,6 +6,7 @@
       </h1>
       <p>Choose one image and and click twice for sorting based on color.</p>
     </div>
+
     <div v-if="photos" class="photos mx-auto w-4/5 ">
       <div
         v-for="photo in photos"
@@ -60,11 +61,13 @@ export default {
       this.pickedPhotoId = photo.id;
     },
     sendClick: function() {
+      this.$Progress.start();
       axios
         .post(`${server}/search`, {
           q: this.pickedPhotoId
         })
         .then(response => {
+          this.$Progress.finish();
           this.pickedPhotoId = null;
           this.photos = response.data.data;
 
