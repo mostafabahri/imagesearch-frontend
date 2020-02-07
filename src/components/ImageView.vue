@@ -16,7 +16,7 @@
         }"
       >
         <figure @click="handleClick(photo)">
-          <img class="w-full m-0" :src="photo.url" />
+          <img class="w-full m-0" v-lazy="photo.url" />
           <figcaption>
             {{ photo.title }}
           </figcaption>

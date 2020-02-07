@@ -4,6 +4,12 @@ import './registerServiceWorker';
 import router from './router';
 import store from './store';
 
+import VueLazyload from 'vue-lazyload'
+
+Vue.use(VueLazyload, {
+  observer: true
+})
+
 import './assets/styles/index.css';
 
 Vue.config.productionTip = false;
