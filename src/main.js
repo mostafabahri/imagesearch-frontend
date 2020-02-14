@@ -23,7 +23,8 @@ Vue.use(VueProgressBar, options)
 
 
 Vue.use(VueLazyload, {
-  observer: true
+  observer: true,
+  lazyComponent: true
 })
 
 import './assets/styles/index.css';

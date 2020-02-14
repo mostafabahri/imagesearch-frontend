@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="">
-    <div id="nav" class="text-right shadow mb-2">
+    <div id="nav" class="text-right shadow mb-2 p-4 lg:p-5">
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
@@ -16,10 +16,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-
-#nav {
-  padding: 25px;
 }
 
 #nav a {
