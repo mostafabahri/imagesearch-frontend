@@ -2,8 +2,8 @@
   <div class="mx-5">
     <div class="mb-6">
       <h1 class=" text-4xl text-gray-800 font-bold">
-        Color Image Match
-        <div v-show="photos" class="font-bold text-sm text-gray-800">
+        Color Image Search
+        <div class="font-bold text-sm text-gray-800">
           (Among {{ photos.length }} images)
         </div>
       </h1>
@@ -13,29 +13,52 @@
       </p>
     </div>
 
-    <div v-if="photos" class="photos mx-auto w-4/5 ">
+    <div class="flex flex-row mb-4 justify-end mx-auto w-4/5 font-semibold">
+      <div class="pr-4">
+        <input type="radio" value="color" name="method" v-model="method" />
+        Color
+      </div>
+      <div class="pr-4">
+        <input type="radio" value="content" name="method" v-model="method" />
+        Content
+      </div>
+      <div>
+        <input type="radio" value="both" name="method" v-model="method" />
+        Both
+      </div>
+    </div>
+
+    <div v-if="photos.length" class="photos mx-auto w-4/5">
       <div
-        v-for="photo in photos"
+        v-for="(photo, index) in photos"
         :key="photo.id"
         class="border-black flex flex-col mb-2"
         :class="{
           unfocused: (pickedPhotoId != null) & (photo.id !== pickedPhotoId)
         }"
       >
-        <figure @click="handleClick(photo)">
-          <img class="w-full m-0" v-lazy="photo.url" />
-          <figcaption>
-            <!-- {{ photo.title }} -->
-          </figcaption>
-        </figure>
-        <lazy-component class="palette flex flex-row mt-1">
-          <div
-            class="flex-1 h-8"
-            v-for="color in photo.colors"
-            :key="color.rgb"
-            :style="{ backgroundColor: color.rgb }"
-          ></div>
-        </lazy-component>
+        <div>
+          <figure @click="handleClick(photo)" class="cursor-pointer">
+            <img
+              class="w-full m-0"
+              v-lazy="photo.url"
+              :class="{
+                'border-8 border-red-500': index == 0
+              }"
+            />
+            <figcaption>
+              {{ photo.title }}
+            </figcaption>
+          </figure>
+          <div v-if="photo.colors" class="palette flex flex-row mt-1">
+            <div
+              class="flex-1 h-8"
+              v-for="color in photo.colors"
+              :key="color.rgb"
+              :style="{ backgroundColor: color.rgb }"
+            ></div>
+          </div>
+        </div>
       </div>
     </div>
     <div v-else>
@@ -56,8 +79,14 @@ export default {
     return {
       photos: [],
       pickedPhotoId: null,
-      loading: false
+      loading: false,
+      method: "color"
     };
+  },
+  watch: {
+    method: function(method) {
+      console.log("method " + method);
+    }
   },
   props: {},
   mounted() {
@@ -96,7 +125,7 @@ export default {
 <style scoped>
 .photos {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-row-gap: 15px;
   grid-column-gap: 12px;
 }
