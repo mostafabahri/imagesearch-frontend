@@ -13,7 +13,7 @@
       </p>
     </div>
 
-    <div class="flex flex-row mb-4 justify-end mx-auto w-4/5 font-semibold">
+    <div class="flex flex-row mb-4 justify-end mx-auto md:w-4/5 font-semibold">
       <div class="pr-4">
         <input type="radio" value="color" name="method" v-model="method" />
         Color
@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div v-if="photos.length" class="photos mx-auto w-4/5">
+    <div v-if="photos.length" class="photos mx-auto md:w-4/5">
       <div
         v-for="(photo, index) in photos"
         :key="photo.id"
@@ -92,7 +92,6 @@ export default {
   mounted() {
     axios.get(`${server}/images`).then(response => {
       this.photos = response.data.data;
-      console.log(this.photos);
     });
   },
   methods: {
