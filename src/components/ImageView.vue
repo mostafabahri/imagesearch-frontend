@@ -15,15 +15,33 @@
 
     <div class="flex flex-row mb-4 justify-end mx-auto md:w-4/5 font-semibold">
       <div class="pr-4">
-        <input type="radio" value="color" name="method" v-model="method" />
+        <input
+          type="radio"
+          value="color"
+          name="method"
+          v-model="method"
+          :disabled="!queryId"
+        />
         Color
       </div>
       <div class="pr-4">
-        <input type="radio" value="content" name="method" v-model="method" />
+        <input
+          type="radio"
+          value="content"
+          name="method"
+          v-model="method"
+          :disabled="!queryId"
+        />
         Content
       </div>
       <div>
-        <input type="radio" value="both" name="method" v-model="method" />
+        <input
+          type="radio"
+          value="both"
+          name="method"
+          v-model="method"
+          :disabled="!queryId"
+        />
         Both
       </div>
     </div>
