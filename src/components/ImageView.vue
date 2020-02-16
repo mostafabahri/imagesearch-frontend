@@ -66,7 +66,6 @@
 
 <script>
 import axios from "axios";
-
 const server = process.env.VUE_APP_SERVER;
 console.log(server);
 
@@ -82,6 +81,23 @@ export default {
   },
   watch: {
     method: function(method) {
+      this.callSearch();
+    }
+  },
+  props: {},
+  mounted() {
+    // load initial images
+    axios.get(`${server}/images`).then(response => {
+      this.photos = response.data.data;
+    });
+  },
+  methods: {
+    handleClick: function(photo) {
+      this.queryId = photo.id;
+      this.callSearch();
+    },
+    callSearch: function() {
+      this.$Progress.start();
       axios
         .get(`${server}/search`, {
           params: {
@@ -90,35 +106,13 @@ export default {
           }
         })
         .then(response => {
-          console.log("nice");
-        });
-    }
-  },
-  props: {},
-  mounted() {
-    // load images
-    axios.get(`${server}/images`).then(response => {
-      this.photos = response.data.data;
-    });
-  },
-  methods: {
-    handleClick: function(photo) {
-      this.queryId = photo.id;
-
-      this.$Progress.start();
-      axios
-        .get(`${server}/search`, {
-          params: { q: this.queryId }
-        })
-        .then(response => {
           this.$Progress.finish();
           this.photos = response.data.data;
 
           // scroll to top
           window.scrollTo(0, 0);
         });
-    },
-    sendClick: function() {}
+    }
   }
 };
 </script>
