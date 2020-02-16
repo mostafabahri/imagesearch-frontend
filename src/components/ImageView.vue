@@ -33,9 +33,6 @@
         v-for="(photo, index) in photos"
         :key="photo.id"
         class="border-black flex flex-col mb-2"
-        :class="{
-          unfocused: (pickedPhotoId != null) & (photo.id !== pickedPhotoId)
-        }"
       >
         <div>
           <figure @click="handleClick(photo)" class="cursor-pointer">
@@ -78,45 +75,50 @@ export default {
   data: function() {
     return {
       photos: [],
-      pickedPhotoId: null,
+      queryId: null,
       loading: false,
       method: "color"
     };
   },
   watch: {
     method: function(method) {
-      console.log("method " + method);
+      axios
+        .get(`${server}/search`, {
+          params: {
+            q: this.queryId,
+            method: this.method
+          }
+        })
+        .then(response => {
+          console.log("nice");
+        });
     }
   },
   props: {},
   mounted() {
+    // load images
     axios.get(`${server}/images`).then(response => {
       this.photos = response.data.data;
     });
   },
   methods: {
     handleClick: function(photo) {
-      // double click
-      if (this.pickedPhotoId === photo.id) {
-        this.sendClick();
-        return;
-      }
-      this.pickedPhotoId = photo.id;
-    },
-    sendClick: function() {
+      this.queryId = photo.id;
+
       this.$Progress.start();
       axios
-        .post(`${server}/search`, {
-          q: this.pickedPhotoId
+        .get(`${server}/search`, {
+          params: { q: this.queryId }
         })
         .then(response => {
           this.$Progress.finish();
-          this.pickedPhotoId = null;
           this.photos = response.data.data;
 
+          // scroll to top
           window.scrollTo(0, 0);
         });
-    }
+    },
+    sendClick: function() {}
   }
 };
 </script>
