@@ -13,36 +13,39 @@
       </p>
     </div>
 
-    <div class="flex flex-row mb-4 justify-end mx-auto md:w-4/5 font-semibold">
-      <div class="pr-4">
+    <div class="flex space-x-4 flex-row mb-4 justify-end mx-auto md:w-4/5 font-semibold">
+      <div class="space-x-1">
         <input
+        id="color-method"
           type="radio"
           value="color"
           name="method"
           v-model="method"
           :disabled="!queryId"
         />
-        Color
+        <label for="color-method">Color</label>
       </div>
-      <div class="pr-4">
+      <div class="space-x-1">
         <input
+        id="content-method"
           type="radio"
           value="content"
           name="method"
           v-model="method"
           :disabled="!queryId"
         />
-        Content
+        <label for="content-method">Content</label>
       </div>
-      <div>
+      <div class="space-x-1">
         <input
+        id="both-method"
           type="radio"
           value="both"
           name="method"
           v-model="method"
           :disabled="!queryId"
         />
-        Both
+        <label for="both-method">Both</label>
       </div>
     </div>
 
@@ -89,49 +92,49 @@ console.log(server);
 
 export default {
   name: "ImageView",
-  data: function() {
+  data: function () {
     return {
       photos: [],
       queryId: null,
       loading: false,
-      method: "color"
+      method: "color",
     };
   },
   watch: {
-    method: function(method) {
+    method: function (method) {
       this.callSearch();
-    }
+    },
   },
   props: {},
   mounted() {
     // load initial images
-    axios.get(`${server}/images`).then(response => {
+    axios.get(`${server}/images`).then((response) => {
       this.photos = response.data.data;
     });
   },
   methods: {
-    handleClick: function(photo) {
+    handleClick: function (photo) {
       this.queryId = photo.id;
       this.callSearch();
     },
-    callSearch: function() {
+    callSearch: function () {
       this.$Progress.start();
       axios
         .get(`${server}/search`, {
           params: {
             q: this.queryId,
-            method: this.method
-          }
+            method: this.method,
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.$Progress.finish();
           this.photos = response.data.data;
 
           // scroll to top
           window.scrollTo(0, 0);
         });
-    }
-  }
+    },
+  },
 };
 </script>
 
