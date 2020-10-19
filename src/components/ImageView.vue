@@ -1,7 +1,7 @@
 <template>
-  <div class="mx-5">
+  <div class="max-w-screen-xl mx-auto px-5">
     <div class="mb-6">
-      <h1 class=" text-4xl text-gray-800 font-bold">
+      <h1 class="text-4xl text-gray-800 font-bold">
         Color Image Search
         <div class="font-bold text-sm text-gray-800">
           (Among {{ photos.length }} images)
@@ -13,21 +13,24 @@
       </p>
     </div>
 
-    <div class="flex space-x-4 flex-row mb-4 justify-end mx-auto md:w-4/5 font-semibold">
+    <div
+      class="flex space-x-4 flex-row mb-4 justify-end font-semibold"
+      :class="{ 'opacity-50': !queryId }"
+    >
       <div class="space-x-1">
         <input
-        id="color-method"
+          id="color-method"
           type="radio"
           value="color"
           name="method"
           v-model="method"
           :disabled="!queryId"
         />
-        <label for="color-method">Color</label>
+        <label for="color-method"> Color</label>
       </div>
       <div class="space-x-1">
         <input
-        id="content-method"
+          id="content-method"
           type="radio"
           value="content"
           name="method"
@@ -38,7 +41,7 @@
       </div>
       <div class="space-x-1">
         <input
-        id="both-method"
+          id="both-method"
           type="radio"
           value="both"
           name="method"
@@ -49,7 +52,7 @@
       </div>
     </div>
 
-    <div v-if="photos.length" class="photos mx-auto md:w-4/5">
+    <div v-if="photos.length" class="photos">
       <div
         v-for="(photo, index) in photos"
         :key="photo.id"
@@ -61,7 +64,7 @@
               class="w-full m-0"
               v-lazy="photo.url"
               :class="{
-                'border-8 border-red-500': index == 0 && queryId
+                'border-8 border-red-500': index == 0 && queryId,
               }"
             />
             <figcaption>
@@ -79,9 +82,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
-      loading data...
-    </div>
+    <div v-else>loading data...</div>
   </div>
 </template>
 
