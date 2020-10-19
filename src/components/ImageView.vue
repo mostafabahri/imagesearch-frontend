@@ -2,53 +2,48 @@
   <div class="max-w-screen-xl mx-auto px-5">
     <div class="mb-6">
       <h1 class="text-4xl text-gray-800 font-bold">
-        Color Image Search
+        Image Search
         <div class="font-bold text-sm text-gray-800">
           (Among {{ photos.length }} images)
         </div>
       </h1>
-      <p class="text-gray-700 mt-1">
-        Choose one image and and click twice for sorting based on the image
-        colors.
-      </p>
+      <p class="text-gray-700 my-5">Click on an image to get started. </p>
     </div>
-
-    <div
-      class="flex space-x-4 flex-row mb-4 justify-end font-semibold"
-      :class="{ 'opacity-50': !queryId }"
-    >
-      <div class="space-x-1">
-        <input
-          id="color-method"
-          type="radio"
-          value="color"
-          name="method"
-          v-model="method"
-          :disabled="!queryId"
-        />
-        <label for="color-method"> Color</label>
-      </div>
-      <div class="space-x-1">
-        <input
-          id="content-method"
-          type="radio"
-          value="content"
-          name="method"
-          v-model="method"
-          :disabled="!queryId"
-        />
-        <label for="content-method">Content</label>
-      </div>
-      <div class="space-x-1">
-        <input
-          id="both-method"
-          type="radio"
-          value="both"
-          name="method"
-          v-model="method"
-          :disabled="!queryId"
-        />
-        <label for="both-method">Both</label>
+    <div v-show="queryId">
+      <div
+        class="flex flex-row gap-4 mb-4 justify-start font-semibold"
+      >
+      <div class="font-semibold text-teal-700">Search by </div>
+        <div class="space-x-1">
+          <input
+            id="color-method"
+            type="radio"
+            value="color"
+            name="method"
+            v-model="method"
+          />
+          <label for="color-method"> Color</label>
+        </div>
+        <div class="space-x-1">
+          <input
+            id="content-method"
+            type="radio"
+            value="content"
+            name="method"
+            v-model="method"
+          />
+          <label for="content-method">Content</label>
+        </div>
+        <div class="space-x-1">
+          <input
+            id="both-method"
+            type="radio"
+            value="both"
+            name="method"
+            v-model="method"
+          />
+          <label for="both-method">Both</label>
+        </div>
       </div>
     </div>
 
