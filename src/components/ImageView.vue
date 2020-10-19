@@ -58,7 +58,7 @@
               class="w-full m-0"
               v-lazy="photo.url"
               :class="{
-                'border-8 border-red-500': index == 0
+                'border-8 border-red-500': index == 0 && queryId
               }"
             />
             <figcaption>
